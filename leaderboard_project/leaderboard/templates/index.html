@@ -15,7 +15,7 @@
   <script src="{% static 'Build/UnityLoader.js' %}"></script>
   <script>
     
-    var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build 0.0.1.0.json", {onProgress: UnityProgress});
+    var unityInstance = UnityLoader.instantiate("unityContainer", "{% static 'Build/Build 0.0.1.0.json' %}", {onProgress: UnityProgress});
   </script>
   
   <script type="module" src="{% static 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' %}"></script>
