@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity WebGL Player | MonoPGNIU</title>
+  <link rel="shortcut icon" href="{% static 'TemplateData/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'TemplateData/style.css' %}">
+  <link rel="stylesheet" href="{% static 'stylehtml.css' %}">
+  <script src="{% static 'TemplateData/UnityProgress.js' %}"></script>
+  <script src="{% static 'Build/UnityLoader.js' %}"></script>
+  <script>
+    
+    var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build 0.0.1.0.json", {onProgress: UnityProgress});
+  </script>
+  
+  <script type="module" src="{% static 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' %}"></script>
+    <script nomodule src="{% static 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js' %}"></script>
+
+</head>
+
+<body>
+  
+  <header>
+     <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+
+    <div id="openModal0" class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Таблица лидеров</h3>
+            <a href="#close" title="Close" class="close">×</a>
+          </div>
+          <div class="modal-body">
+            <p><table>
+        <tr>
+            <th>Место</th>
+            <th>Имя игрока</th>
+            <th>Счет</th>
+        </tr>
+        {% for player in players %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ player.name }}</td>
+            <td>{{ player.score }}</td>
+        </tr>
+        {% endfor %}
+    </table> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="openModal" class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Правила Игры</h3>
+            <a href="#close" title="Close" class="close">×</a>
+          </div>
+          <div class="modal-body">    
+            <p>Правила Игроки поочередно кидают игральные кости и делают соответствующее количество ходов на игровом поле. Встав на поле с активом, игрок может приобрести его, если он свободен, а если он принадлежит другому игроку, то игрок обязан заплатить за посещение данного поля по установленному правилами прейскуранту.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="openModal1" class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Кто мы такие?</h3>
+            <a href="#close" title="Close" class="close">×</a>
+          </div>
+          <div class="modal-body">    
+            <p>Мы команда разработчиков, которая попыталась сделать стоящий проект,требующий много сил и времени. Если вы это читаете значит наши силы окупились! </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="korganized-ousebtev">
+      <div class="mostumpon-kanetumok">
+        <a href="/">
+          <img src="{% static 'TemplateData/640px-Логотип_Пермского_государственного_национального_исследовательского_университета.png' %}" width="90vh " style="margin-left:-20vh ;">
+
+        </a>
+      </div>
+      <nav>
+        <div class="button"><button id="submit" onclick="myUnityOpen()">Играть</button></div>
+        <div class="button"><button id="submit" onclick="myUnityClose()">Закрыть Игру</button></div>
+        <audio src="{% static 'Build/the_witcher_3_wild_hunt_05 Aen Seidhe.mp3' %}" id="audio1"loop>
+          Audio is not supported.
+      </audio>
+      <div id="control">
+        <input type="button" id="btnPause" onclick="PausePlay()"  value="Музыка" />
+    </div>
+      <ul>
+        <li><a href="#openModal0">Таблица Лидеров</a></li>
+        <li><a href="#openModal">Правила</a></li>
+        <li><a href="#openModal1">О нас</a></li>   
+     </ul>
+    </nav>
+    </div>
+    
+  </header>
+  
+  
+ 
+<div class="main" id="блок1" style="display: none;">
+  <div class="webgl-content">
+    <div id="unityContainer" style="width: 50vw; height:50vh;"></div>
+    <div class="footer">
+     
+      <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+      <div class="title" style="color: antiquewhite;">ПОЛЕ И ФИШКА</div>
+    </div>
+  </div>
+</div>
+<footer>
+    <div class="waves">
+        <div class="wave" id="wave1"></div>
+    </div>
+    <ul class="social">
+        <li><a href="https://github.com/x4dson/monopgniu" target="_blank"><ion-icon name="logo-github"></ion-icon></a></li>
+        <li><a href="https://discord.gg/uHQH2qsN"><ion-icon name="logo-discord"></ion-icon></a></li>
+        <li><a href="https://vk.com/permuniversity"><ion-icon name="logo-vk"></ion-icon></a></li>
+    
+</footer>
+</body>
+
+
+</html>
