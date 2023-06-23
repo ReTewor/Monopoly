@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="{% static 'stylehtml.css' %}">
   <script src="{% static 'TemplateData/UnityProgress.js' %}"></script>
   <script src="{% static 'Build/UnityLoader.js' %}"></script>
+  <script src="{% static 'add_score.js' %}"></script>
   <script>
     
     var unityInstance = UnityLoader.instantiate("unityContainer", "{% static 'Build/Build 0.0.1.0.json' %}", {onProgress: UnityProgress});
@@ -23,7 +24,7 @@
 
 </head>
 
-<body>
+<body onload="addScoreToLeaderboard()">
   
   <header>
      <style>
@@ -36,7 +37,7 @@
             border-bottom: 1px solid #ddd;
         }
     </style>
-
+    {% csrf_token %}
     <div id="openModal0" class="modal">
       <div class="modal-dialog">
         <div class="modal-content">
