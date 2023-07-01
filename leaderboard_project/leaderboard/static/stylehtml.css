@@ -4,6 +4,19 @@
   opacity: 1;
   margin-top: 100%;
 }
+.pole-fishka{
+  display: flex;
+  justify-content: center;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+
+}
+.character{
+  display: flex;
+  justify-content: center;
+}
+.feedback{
+  margin-top: 3%;
+}
 #submit::before{
   content: '';
   position: absolute;
@@ -13,6 +26,17 @@
   height: 100%;
 
 }
+.submit::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+}
+
+
 
 button{
   padding: 0;
@@ -36,13 +60,12 @@ button{
 #btnPause::before{
   content: '';
   position: absolute;
-  display: block;
-  top: -15px;
-  left: -15px;
-  right: -15px;
-  bottom: -15px;
-  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
+
 
 #control{
   
@@ -70,8 +93,7 @@ button{
   transition: .2s ease-in-out;
 }
 #control::before{
-  
-  outline: none;
+  /*outline: none;*/
   content: "";
   background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
   height: 50px;
@@ -363,7 +385,7 @@ html,body{
 
  
   footer{ 
-     box-shadow: 0 3px 16px 1px #fe6637;
+     box-shadow: 0 -7px 20px -7px #fe6637;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -414,3 +436,32 @@ html,body{
       margin-top: 15px;
       font-size: 1.1em;
   }
+.copy{
+ float: right;
+ color: #fff;
+}
+.line{
+  margin-top: 2%;
+}
+
+.p{
+  display: flex;
+  justify-content: center;
+}
+
+.top-player {
+  background-color: gold;
+  font-weight: bold;
+}
+
+.second-player {
+  background-color: silver;
+}
+
+.third-player {
+  background-color: #CD7F32;
+}
+
+.other-players {
+  background-color: lightblue;
+}

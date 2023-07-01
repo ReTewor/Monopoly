@@ -4,30 +4,31 @@
 
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Unity WebGL Player | MonoPGNIU</title>
-  <link rel="shortcut icon" href="{% static 'TemplateData/favicon.ico' %}">
+  <title>ПОЛЕ И ФИШКА</title>
+  <link rel="shortcut icon" href="{% static 'TemplateData/LogoNew.png' %}">
   <link rel="stylesheet" href="{% static 'TemplateData/style.css' %}">
   <link rel="stylesheet" href="{% static 'stylehtml.css' %}">
+  <script src="{% static 'UnityLoader.js' %}"></script>
   <script src="{% static 'TemplateData/UnityProgress.js' %}"></script>
-  <script src="{% static 'Build/UnityLoader.js' %}"></script>
   <script src="{% static 'add_score.js' %}"></script>
   <script>
-    
-    var unityInstance = UnityLoader.instantiate("unityContainer", "{% static 'Build/Build 0.0.1.0.json' %}", {onProgress: UnityProgress});
+
+    var unityInstance = UnityLoader.instantiate("unityContainer", "{% static 'Build/Build 1.0.0.3.json' %}", { onProgress: UnityProgress });
   </script>
-  
+
   <script type="module" src="{% static 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' %}"></script>
-    <script nomodule src="{% static 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js' %}"></script>
+  <script nomodule src="{% static 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js' %}"></script>
 
 </head>
 
-<body onload="addScoreToLeaderboard()">
-  
+<body onbeforeunload="return myFunction">
+
   <header>
-     <style>
+
+    <style>
         table {
             border-collapse: collapse;
         }
@@ -46,20 +47,23 @@
             <a href="#close" title="Close" class="close">×</a>
           </div>
           <div class="modal-body">
-            <p><table>
+            <p>
+    <table>
         <tr>
             <th>Место</th>
             <th>Имя игрока</th>
             <th>Счет</th>
         </tr>
         {% for player in players %}
-        <tr>
+        <tr {% if forloop.counter == 1 %}class="top-player"{% elif forloop.counter == 2 %}class="second-player"{% elif forloop.counter == 3 %}class="third-player"{% else %}class="other-players"{% endif %}>
             <td>{{ forloop.counter }}</td>
             <td>{{ player.name }}</td>
             <td>{{ player.score }}</td>
         </tr>
         {% endfor %}
-    </table> </p>
+    </table>
+</p>
+
           </div>
         </div>
       </div>
@@ -72,8 +76,76 @@
             <h3 class="modal-title">Правила Игры</h3>
             <a href="#close" title="Close" class="close">×</a>
           </div>
-          <div class="modal-body">    
-            <p>Правила Игроки поочередно кидают игральные кости и делают соответствующее количество ходов на игровом поле. Встав на поле с активом, игрок может приобрести его, если он свободен, а если он принадлежит другому игроку, то игрок обязан заплатить за посещение данного поля по установленному правилами прейскуранту.</p>
+         <div class="modal-body">
+            </p>
+            <div class="character">
+              <p style="color:#fe6637">1. Распределение характеристик</p>
+            </div>
+            После выбора цвета фишки вы будете перенаправлены на экран распределения характеристик. Вам
+            предоставляется определенное количество очков, которые вы можете распределить между тремя
+            характеристиками: здоровье, удача и интеллект.
+            <p>— Интеллект влияет на множитель очков,чем больше интеллекта,тем больше очков вы получаете с локации.</p>
+            <p>— Удача влияет на шанс выпадения благоприятного случайного события.</p>
+            <p>— Игра продолжается до тех пор, пока здоровье не закончится.</p>
+            Распределите очки между характеристиками в зависимости от вашей стратегии и предпочтений.
+            </p>
+            <br>
+            <div class="character">
+              <p style="color:#fe6637">2. Управление</p>
+            </div>
+            На экране вы увидите вашу выбранную фишку. Вы можете изменять вид камеры, чтобы осмотреть игровое
+            поле(нажмите на кнопку камеры).
+            Нажмите кнопку с кубиком(или клавишу "пробел"), чтобы бросить кубик и определить, сколько полей ваша фишка
+            будет продвигаться.
+            В зависимости от выпавшего значения на кубике ваша фишка перемещается на соответствующее количество полей.
+            </p>
+            <br>
+            <div class="character">
+              <p style="color:#fe6637">3. Система очков</p>
+            </div>
+            <p>На каждой клетке игрового поля написано количество очков, которые получит игрок при посещении локации без
+              учёта характеристик.
+              В правом углу вы увидите сколько очков вы получите с их учётом. Локация "<span style="color:red">Академической Отпуск</span>" аннулирует все ваши очки набранные за курс и возвращает на начало курса.
+            <p style="color: red;">За пропуск локации вы теряете 100 игровых очков.</p>При подсчёте финальных очков
+            будут учитываться
+            все набранные вами характеристики(здоровье, удача, интеллект и деньги).
+
+            </p>
+            <br>
+            <div class="character">
+              <p style="color:#fe6637">4. Игровые события</p>
+            </div>
+            <p>Когда ваша фишка останавливается на поле, возможны различные игровые события.
+              Некоторые поля могут вам предлагать посетить или пропустить локацию, при этом изменяя
+              характеристики фишки.
+              В игре также могут присутствовать шанс и случайные события, которые могут повлиять на ваш игровой процесс.
+
+            </p>
+            <br>
+            <div class="character">
+              <p style="color:#fe6637">5. Цель игры</p>
+            </div>
+            <p>При прохождении одного игрового круга происходит смена курса.
+              Цель игры "Поле и фишка" заключается в накоплении наибольшего количества очков за прохождение 4 “курсов”,
+              на которое влияют полученные деньги и характеристики.
+              Вы можете зарабатывать деньги и характеристики, посещая или пропуская локации игры, а также можно получить
+              некоторые ресурсы при переходе на следующий курс.
+            </p>
+            <br>
+            <div class="character">
+              <p style="color:#fe6637">6. Конец игры</p>
+            </div>
+            <p>Игра продолжается до тех пор, пока здоровье не будет равно нулю или игрок не пройдет все 4 курса.
+              После окончания игры будет представлено количество очков, набранных за прохождение всех курсов, а также
+              время игры. У пользователя будет возможность опубликовать свой результат в таблицу лидеров под собственным
+              псевдонимом.
+            </p>
+
+            <br>
+            <div class="p">
+              <p style="color:green">Удачи и Приятной игры🍀</p>
+            </div>
+            </p>
           </div>
         </div>
       </div>
@@ -86,62 +158,90 @@
             <h3 class="modal-title">Кто мы такие?</h3>
             <a href="#close" title="Close" class="close">×</a>
           </div>
-          <div class="modal-body">    
-            <p>Мы команда разработчиков, которая попыталась сделать стоящий проект,требующий много сил и времени. Если вы это читаете значит наши силы окупились! </p>
+          <div class="modal-body">
+
+            <p>🏆Мы команда разработчиков, которая попыталась сделать стоящий проект,требующий много сил и времени. Если
+              вы это читаете значит наши силы окупились!🏆 </p>
+            <p>🎓 Добро пожаловать в уникальный университетский мир нашей игры, вдохновленной легендарной Монополией!🎓
+            </p>
+            <p>🌟 Мы с гордостью представляем вам наше захватывающее приключение, где вы сможете окунуться в
+              университетскую жизнь и стать настоящим гением стратегии! У нас есть все, чтобы вы почувствовали
+              себя студентом, преуспевающим в академической сфере и стремящимся к успеху🌟</p>
+
+
+            <p>🏫 В нашей игре вы сможете соревноваться с друзьями или семьей, чтобы выяснить кто из вас является лучшим
+              студентом🏫</p>
+            <p>📚 Не упустите возможность окунуться в захватывающий мир университетской Монополии!📚</p>
           </div>
         </div>
       </div>
     </div>
 
 
+
     <div class="korganized-ousebtev">
       <div class="mostumpon-kanetumok">
         <a href="/">
-          <img src="{% static 'TemplateData/640px-Логотип_Пермского_государственного_национального_исследовательского_университета.png' %}" width="90vh " style="margin-left:-20vh ;">
+          <img
+            src="{% static 'TemplateData/640px-Логотип_Пермского_государственного_национального_исследовательского_университета.png' %}"
+            width="90vh " style="margin-left:-20vh ;">
 
         </a>
       </div>
       <nav>
-        <div class="button"><button id="submit" onclick="myUnityOpen()">Играть</button></div>
-        <div class="button"><button id="submit" onclick="myUnityClose()">Закрыть Игру</button></div>
-        <audio src="{% static 'Build/the_witcher_3_wild_hunt_05 Aen Seidhe.mp3' %}" id="audio1"loop>
+        <div class="button"><button id="submit" onclick="myUnityOpen()" value="Play">Играть</button></div>
+        <audio src="{% static 'TemplateData/mix_10m29s (audio-joiner.com).mp3' %}" id="audio1" loop>
           Audio is not supported.
-      </audio>
-      <div id="control">
-        <input type="button" id="btnPause" onclick="PausePlay()"  value="Музыка" />
+        </audio>
+        <div id="control">
+          <button id="btnPause" controls onclick="PausePlay()">Музыка</button>
+        </div>
+        <ul>
+          <li><a href="#openModal0">Таблица Лидеров</a></li>
+          <li><a href="#openModal">Правила</a></li>
+          <li><a href="#openModal1">О нас</a></li>
+        </ul>
+      </nav>
     </div>
-      <ul>
-        <li><a href="#openModal0">Таблица Лидеров</a></li>
-        <li><a href="#openModal">Правила</a></li>
-        <li><a href="#openModal1">О нас</a></li>   
-     </ul>
-    </nav>
-    </div>
-    
+
   </header>
-  
-  
- 
-<div class="main" id="блок1" style="display: none;">
-  <div class="webgl-content">
-    <div id="unityContainer" style="width: 50vw; height:50vh;"></div>
-    <div class="footer">
-     
-      <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
-      <div class="title" style="color: antiquewhite;">ПОЛЕ И ФИШКА</div>
+
+
+  <div class="blockobvodka">
+    <div class="main" id="блок1" style="display: none;">
+
+      <div class="webgl-content">
+        <div id="unityContainer" style="width: 50vw; height:50vh;"></div>
+        <div class="footer">
+
+          <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+          <div class="title" style="color: antiquewhite;">ПОЛЕ И ФИШКА</div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<footer>
+  <footer>
+    <p class="feedback">Обратная связь</p>
     <div class="waves">
-        <div class="wave" id="wave1"></div>
+      <div class="wave" id="wave1"></div>
     </div>
-    <ul class="social">
-        <li><a href="https://github.com/x4dson/monopgniu" target="_blank"><ion-icon name="logo-github"></ion-icon></a></li>
-        <li><a href="https://discord.gg/uHQH2qsN"><ion-icon name="logo-discord"></ion-icon></a></li>
-        <li><a href="https://vk.com/permuniversity"><ion-icon name="logo-vk"></ion-icon></a></li>
-    
-</footer>
+    <div>
+      <ul class="social">
+        <li><a href="https://t.me/+5R9v0fdCOvo4YmUy" target="_blank"><img src="{% static 'TemplateData/rfp7o2796wcdbiwn.png' %}"
+              width="35px" alt=""></a></li>
+        <li><a href="https://vk.com/x4dson" target="_blank"><img src="{% static 'TemplateData/photo-768x768.png' %}" width="35px"
+              alt=""></a></li>
+        <li><a href="https://discord.gg/yXhDYZjHn7" target="_blank"><img src="{% static 'TemplateData/app-icons-discord.png' %}"
+              width="35px" alt=""></a></li>
+      </ul>
+    </div>
+    <div class="copy">
+      &copy; Copyright 2023-2023, ПОЛЕ И ФИШКА
+    </div>
+
+
+
+  </footer>
 </body>
 
 

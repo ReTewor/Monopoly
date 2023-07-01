@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-lrs(=m)n&3e_9jxc+g&rd#g2@7(dne40m7=i(d%yrlpi&ojm-h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+#ALLOWED_HOSTS = ['ReTewor.pythonanywhere.com',]
 
 # Application definition
 
@@ -117,6 +116,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+#STATIC_ROOT = '/home/ReTewor/Monopoly/leaderboard_project/leaderboard/static'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
